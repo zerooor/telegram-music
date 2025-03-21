@@ -24,6 +24,11 @@ body {
     width: 100%;
     max-width: 250px;
     border-radius: 10px;
+    transition: transform 0.3s easy-in-out;
+}
+
+.cover img:hover {
+    transform: scale(1.05);
 }
 
 .controls {
@@ -33,7 +38,8 @@ body {
 }
 
 button {
-    background: orange;
+    background: linear-gradient(45deg, orange, red);
+    transition: background 0.3s, transform 0.2s;
     border: none;
     color: white;
     font-size: 20px;
@@ -44,7 +50,8 @@ button {
 }
 
 button:hover {
-    background: darkorange;
+    background: linear-gradient(45deg, red, orange);
+    transform: scale(1.1);
 }
 
 #progress-bar {
