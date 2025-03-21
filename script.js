@@ -1,4 +1,8 @@
 const tg = window.Telegram.WebApp;
+tg.BackButton.show();
+tg.BackButton.onClick(() => {
+    tg.close();
+});
 tg.expand(); // Разворачиваем Web App
 
 const tracks = [
@@ -118,6 +122,62 @@ document.getElementById("searchBtn").addEventListener("click", () => {
         showLoading();
         fetchYouTubeVideo(userQuery).then(hideLoading);
     }
+});
+
+async function fetchYouTubeVideo(query) {
+    const url = https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&key=${API_KEY}&type=video;
+    const response = await fetch(url);
+    const data = await response.json();
+    
+    if (data.items.length > 0) {
+        const videoId = data.items[0].id.videoId;
+        const videoUrl = https://www.youtube.com/watch?v=${videoId};
+        console.log("Найдено видео:", videoUrl);
+
+        const thumbnail = data.items[0].snippet.thumbnails.high.url;
+        document.getElementById("cover-image").src = thumbnail;
+
+        loadYouTubeAudio(videoId);
+    } else {
+        console.error("Видео не найдено");
+    }
+}
+
+let playlist = [];
+let currentTrackIndex = 0;
+
+async function fetchPlaylist(query) {
+    const url = https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&key=${API_KEY}&type=video&maxResults=5;
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (data.items.length > 0) {
+        playlist = data.items.map(item => ({
+            videoId: item.id.videoId,
+            title: item.snippet.title,
+            thumbnail: item.snippet.thumbnails.high.url
+        }));
+
+        currentTrackIndex = 0;
+        loadTrack(currentTrackIndex);
+    }
+}
+
+function loadTrack(index) {
+    const track = playlist[index];
+    document.getElementById("cover-image").src = track.thumbnail;
+    document.getElementById("track-name").textContent = track.title;
+    loadYouTubeAudio(track.videoId);
+}
+
+document.getElementById("next").addEventListener("click", () => {
+    currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+    loadTrack(currentTrackIndex);
+});
+
+document.getElementById("prev").addEventListener("click", () => {
+    currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+    loadTrack(currentTrackIndex);
 });
 
 // Загружаем первый трек
