@@ -205,5 +205,39 @@ async function loadYouTubeAudio(videoId) {
     }
 }
 
+let player;
+
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player("youtube-player", {
+        height: "0",
+        width: "0",
+        videoId: "",
+        playerVars: {
+            autoplay: 1,
+            controls: 0,
+            modestbranding: 1,
+            rel: 0,
+            showinfo: 0,
+        },
+        events: {
+            onReady: (event) => event.target.playVideo(),
+            onStateChange: onPlayerStateChange,
+        },
+    });
+}
+
+function loadYouTubeAudio(videoId) {
+    if (player) {
+        player.loadVideoById(videoId);
+    }
+}
+
+function onPlayerStateChange(event) {
+    if (event.data === YT.PlayerState.ENDED) {
+        currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+        loadTrack(currentTrackIndex);
+    }
+}
+
 // Загружаем первый трек
 loadTrack(currentTrack);
