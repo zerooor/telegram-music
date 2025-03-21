@@ -180,5 +180,30 @@ document.getElementById("prev").addEventListener("click", () => {
     loadTrack(currentTrackIndex);
 });
 
+const audioPlayer = document.getElementById("audio");
+
+audioPlayer.addEventListener("ended", () => {
+    currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+    loadTrack(currentTrackIndex);
+});
+
+async function loadYouTubeAudio(videoId) {
+    const mp3Url = https://api.ytmp3.cc/v1/convert?url=https://www.youtube.com/watch?v=${videoId};
+
+    try {
+        const response = await fetch(mp3Url);
+        const data = await response.json();
+
+        if (data.status === "ok") {
+            audioPlayer.src = data.link;
+            audioPlayer.play();
+        } else {
+            console.error("Ошибка при конвертации", data);
+        }
+    } catch (error) {
+        console.error("Ошибка загрузки MP3:", error);
+    }
+}
+
 // Загружаем первый трек
 loadTrack(currentTrack);
