@@ -21,9 +21,9 @@ body {
 }
 
 .cover img {
-    width: 100%;
-    max-width: 250px;
-    border-radius: 10px;
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
     transition: transform 0.3s easy-in-out;
 }
 
@@ -38,16 +38,17 @@ body {
 }
 
 button {
-    background: linear-gradient(45deg, orange, red);
-    transition: background 0.3s, transform 0.2s;
     border: none;
-    color: white;
-    font-size: 20px;
     padding: 10px;
-    margin: 5px;
-    border-radius: 5px;
-    cursor: pointer;
+    border-radius: 50px;
+    font-size: 18px;
+    background: linear-gradient(45deg, orange, red);
+    color: white;
+    transition: background 0.3s, transform 0.2s;
 }
+
+button:active {
+    transform: scale(0.9);
 
 button:hover {
     background: linear-gradient(45deg, red, orange);
