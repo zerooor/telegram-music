@@ -55,5 +55,20 @@ audio.addEventListener("timeupdate", () => {
     progressBar.value = (audio.currentTime / audio.duration) * 100;
 });
 
+// Автоматическая смена темы
+function applyTheme() {
+    const theme = tg.colorScheme; // Получаем тему Telegram
+    if (theme === "dark") {
+        document.body.style.background = "#121212";
+        document.body.style.color = "white";
+    } else {
+        document.body.style.background = "white";
+        document.body.style.color = "black";
+    }
+}
+
+tg.onEvent("themeChanged", applyTheme);
+applyTheme();
+
 // Загружаем первый трек
 loadTrack(currentTrack);
