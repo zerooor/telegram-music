@@ -78,13 +78,13 @@ const API_KEY = "AIzaSyAfPUTsUK8qfz-ROO6PIXih7eN2K0MqREk"; // Вставь сю�
 const searchQuery = "Imagine Dragons Believer"; // Здесь можно вставлять динамический запрос
 
 async function fetchYouTubeVideo() {
-    const url = https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(searchQuery)}&key=${API_KEY}&type=video;
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(searchQuery)}&key=${API_KEY}&type=video`;
     const response = await fetch(url);
     const data = await response.json();
     
     if (data.items.length > 0) {
         const videoId = data.items[0].id.videoId;
-        const videoUrl = https://www.youtube.com/watch?v=${videoId};
+        const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
         console.log("Найдено видео:", videoUrl);
 
         loadYouTubeAudio(videoId);
@@ -95,7 +95,7 @@ async function fetchYouTubeVideo() {
 
 function loadYouTubeAudio(videoId) {
     const audioPlayer = document.getElementById("audio");
-    audioPlayer.src = https://www.youtube.com/embed/${videoId}?autoplay=1&controls=0&loop=1&playlist=${videoId};
+    audioPlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=0&loop=1&playlist=${videoId}`;
 }
 
 // Вызываем поиск при загрузке страницы
@@ -125,13 +125,13 @@ document.getElementById("searchBtn").addEventListener("click", () => {
 });
 
 async function fetchYouTubeVideo(query) {
-    const url = https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&key=${API_KEY}&type=video;
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&key=${API_KEY}&type=video`;
     const response = await fetch(url);
     const data = await response.json();
     
     if (data.items.length > 0) {
         const videoId = data.items[0].id.videoId;
-        const videoUrl = https://www.youtube.com/watch?v=${videoId};
+        const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
         console.log("Найдено видео:", videoUrl);
 
         const thumbnail = data.items[0].snippet.thumbnails.high.url;
@@ -147,7 +147,7 @@ let playlist = [];
 let currentTrackIndex = 0;
 
 async function fetchPlaylist(query) {
-    const url = https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&key=${API_KEY}&type=video&maxResults=5;
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&key=${API_KEY}&type=video&maxResults=5`;
     const response = await fetch(url);
     const data = await response.json();
 
@@ -188,7 +188,7 @@ audioPlayer.addEventListener("ended", () => {
 });
 
 async function loadYouTubeAudio(videoId) {
-    const mp3Url = https://api.ytmp3.cc/v1/convert?url=https://www.youtube.com/watch?v=${videoId};
+    const mp3Url = `https://api.ytmp3.cc/v1/convert?url=https://www.youtube.com/watch?v=${videoId}`;
 
     try {
         const response = await fetch(mp3Url);
