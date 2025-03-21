@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Music</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Telegram Music</h1>
+        <div class="player">
+            <div class="cover">
+                <img id="cover-image" src="cover.jpg" alt="Обложка">
+            </div>
+            <h2 id="track-name">Трек 1</h2>
+            <audio id="audio" src="track1.mp3"></audio>
+            <input type="range" id="progress-bar" value="0">
+            <div class="controls">
+                <button id="prev">⏮</button>
+                <button id="play">▶️</button>
+                <button id="next">⏭</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
