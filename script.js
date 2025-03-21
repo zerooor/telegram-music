@@ -213,22 +213,32 @@ function onYouTubeIframeAPIReady() {
         width: "0",
         videoId: "",
         playerVars: {
-            autoplay: 1,
+            autoplay: 0, // Отключаем автозапуск
             controls: 0,
             modestbranding: 1,
             rel: 0,
             showinfo: 0,
         },
         events: {
-            onReady: (event) => event.target.playVideo(),
+            onReady: () => {
+                isPlayerReady = true;
             onStateChange: onPlayerStateChange,
         },
     });
 }
+document.getElementById("play-button").addEventListener("click", () => {
+    if (isPlayerReady) {
+        player.playVideo();
+        document.getElementById("play-button").style.display = "none"; // Скрываем кнопку после запуска
+    }
+});
 
 function loadYouTubeAudio(videoId) {
-    if (player) {
-        player.loadVideoById(videoId);
+    if (event.data === YT.PlayerState.ENDED) {
+        currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+        loadTrack(currentTrackIndex);
+    }
+};
     }
 }
 
