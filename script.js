@@ -70,5 +70,32 @@ function applyTheme() {
 tg.onEvent("themeChanged", applyTheme);
 applyTheme();
 
+const API_KEY = "AIzaSyAfPUTsUK8qfz-ROO6PIXih7eN2K0MqREk"; // Вставь сюда API-ключ
+const searchQuery = "Imagine Dragons Believer"; // Здесь можно вставлять динамический запрос
+
+async function fetchYouTubeVideo() {
+    const url = https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(searchQuery)}&key=${API_KEY}&type=video;
+    const response = await fetch(url);
+    const data = await response.json();
+    
+    if (data.items.length > 0) {
+        const videoId = data.items[0].id.videoId;
+        const videoUrl = https://www.youtube.com/watch?v=${videoId};
+        console.log("Найдено видео:", videoUrl);
+
+        loadYouTubeAudio(videoId);
+    } else {
+        console.error("Видео не найдено");
+    }
+}
+
+function loadYouTubeAudio(videoId) {
+    const audioPlayer = document.getElementById("audio");
+    audioPlayer.src = https://www.youtube.com/embed/${videoId}?autoplay=1&controls=0&loop=1&playlist=${videoId};
+}
+
+// Вызываем поиск при загрузке страницы
+fetchYouTubeVideo();
+
 // Загружаем первый трек
 loadTrack(currentTrack);
