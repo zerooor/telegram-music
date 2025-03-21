@@ -97,5 +97,28 @@ function loadYouTubeAudio(videoId) {
 // Вызываем поиск при загрузке страницы
 fetchYouTubeVideo();
 
+document.getElementById("searchBtn").addEventListener("click", () => {
+    const userQuery = document.getElementById("search").value;
+    if (userQuery) {
+        fetchYouTubeVideo(userQuery);
+    }
+});
+
+function showLoading() {
+    document.getElementById("searchBtn").textContent = "⏳ Поиск...";
+}
+
+function hideLoading() {
+    document.getElementById("searchBtn").textContent = "🔍 Найти";
+}
+
+document.getElementById("searchBtn").addEventListener("click", () => {
+    const userQuery = document.getElementById("search").value;
+    if (userQuery) {
+        showLoading();
+        fetchYouTubeVideo(userQuery).then(hideLoading);
+    }
+});
+
 // Загружаем первый трек
 loadTrack(currentTrack);
